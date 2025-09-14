@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleBooks | Simplify Text</title>
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --text-color: #212529;
+      --primary-color: #007bff;
+      --border-color: #dee2e6;
+      --card-bg: #ffffff;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    main {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #495057;
+    }
+    textarea, #output {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.5;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+    #output {
+      min-height: 100px;
+      background-color: #f8f9fa;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    button:active {
+      transform: scale(0.99);
+    }
+    #status {
+      text-align: center;
+      min-height: 1.2em;
+      color: #6c757d;
+    }
+    h3 {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      main {
+        padding: 1.5rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>SimpleBooks — Simplify Text</h2>
+
+    <label for="inputText">Enter Text to Simplify</label>
+    <textarea id="inputText" rows="8" placeholder="Paste a complex paragraph here..."></textarea>
+    
+    <button id="btn">Simplify</button>
+    <p id="status"></p>
+
+    <h3>Simplified Result</h3>
+    <div id="output"></div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('btn');
+    const statusEl = document.getElementById('status');
+    const outputEl = document.getElementById('output');
+    const inputTextEl = document.getElementById('inputText');
+
+    btn.addEventListener('click', async () => {
+      const text = inputTextEl.value.trim();
+      if (!text) {
+        alert("Please enter text first.");
+        return;
+      }
+      
+      statusEl.innerText = "Simplifying…";
+      btn.disabled = true;
+      outputEl.innerText = "";
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/simplify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.detail || `HTTP error! status: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        outputEl.innerText = data.simplified || "No result returned from the API.";
+
+      } catch (err) {
+        outputEl.innerText = "Error: " + err.message;
+      } finally {
+        statusEl.innerText = "";
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
