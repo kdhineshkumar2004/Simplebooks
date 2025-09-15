@@ -1,37 +1,4 @@
-certifi==2024.8.30
-chardet==5.2.0
-charset-normalizer==3.4.0
-click @ file:///C:/ci/click_1646056762388/work
-colorama @ file:///C:/b/abs_a9ozq0l032/croot/colorama_1672387194846/work
-defusedxml==0.7.1
-filelock==3.16.1
-Flask @ file:///C:/b/abs_ef16l83sif/croot/flask_1671217367534/work
-Flask-Cors==5.0.0
-fsspec==2024.10.0
-idna==3.10
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-Jinja2 @ file:///C:/b/abs_7cdis66kl9/croot/jinja2_1666908141852/work
-joblib @ file:///C:/b/abs_1anqjntpan/croot/joblib_1685113317150/work
-MarkupSafe @ file:///C:/ci/markupsafe_1654508036328/work
-mkl-fft @ file:///C:/b/abs_19i1y8ykas/croot/mkl_fft_1695058226480/work
-mkl-random @ file:///C:/b/abs_edwkj1_o69/croot/mkl_random_1695059866750/work
-mkl-service==2.4.0
-mpmath==1.3.0
-mysql-connector-python==9.2.0
-networkx==3.4.2
-numpy @ file:///C:/b/abs_9fu2cs2527/croot/numpy_and_numpy_base_1695830496596/work/dist/numpy-1.26.0-cp310-cp310-win_amd64.whl#sha256=11367989d61b64039738e0c68c95c6b797a41c4c75ec2147c0541b21163786eb
-opencv-python==4.10.0.84
-pillow==11.0.0
-reportlab==4.2.5
-requests==2.32.3
-scikit-learn @ file:///C:/b/abs_55olq_4gzc/croot/scikit-learn_1690978955123/work
-scipy==1.11.3
-sympy==1.13.3
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
-torch==2.1.2+cu121
-torchvision==0.16.2+cu121
-typing_extensions==4.12.2
-urllib3==2.2.3
-Werkzeug @ file:///C:/b/abs_8578rs2ra_/croot/werkzeug_1679489759009/work
-youtube-transcript-api==0.6.3
-yt-dlp==2024.12.23
+fastapi==0.116.1
+pydantic==2.11.9
+python-dotenv==1.1.1
+Requests==2.32.5
